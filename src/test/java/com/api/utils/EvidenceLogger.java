@@ -1,4 +1,4 @@
-package com.API.utils;
+package com.api.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +19,9 @@ public class EvidenceLogger {
 
     private static List<Step> steps = new ArrayList<>();
 
-    public static void log(String name, int status, String body){
-        steps.add(new Step(name,status,body));
+    public static void log(String text){
+        System.out.println(text);
+        ReportManager.addLog(text);
     }
 
     public static List<Step> get(){

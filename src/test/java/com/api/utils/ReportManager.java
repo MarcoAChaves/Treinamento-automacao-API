@@ -1,4 +1,4 @@
-package com.API.utils;
+package com.api.utils;
 
 import java.io.FileWriter;
 import java.time.LocalDateTime;
@@ -28,5 +28,8 @@ public class ReportManager {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public static void addLog(String text) {
     }
 }
