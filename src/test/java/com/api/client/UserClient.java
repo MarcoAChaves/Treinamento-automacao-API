@@ -1,35 +1,46 @@
 package com.api.client;
 
-import com.api.base.AuthManager;
 import com.api.model.User;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
 public class UserClient {
 
-    public Response createUser(User user) {
+    private static final String BASE_URL = "https://serverest.dev/#/";
+
+    public Response criarUsuario(User user) {
         return given()
-                .contentType(io.restassured.http.ContentType.JSON)
-                .body(user)
+                .baseUri(BASE_URL)
+                .header("Content-Type", "application/json")
+                .body(user.toJson())   // ← CORREÇÃO CRÍTICA
+                .log().all()
                 .when()
-                .post("/usuarios");
+                .post("/usuarios")
+                .then()
+                .log().all()
+                .extract().response();
     }
 
-    public Response getUsers() {
+    public Response buscarUsuario(String id) {
         return given()
-                .header("Authorization", AuthManager.getToken())
-                .get("/usuarios");
+                .baseUri(BASE_URL)
+                .log().all()
+                .when()
+                .get("/usuarios/" + id)
+                .then()
+                .log().all()
+                .extract().response();
     }
 
-    public Response getUserById(String id) {
+    public Response deletarUsuario(String id) {
         return given()
-                .get("/usuarios/" + id);
-    }
-
-    public Response deleteUser(String id) {
-        return given()
-                .delete("/usuarios/" + id);
+                .baseUri(BASE_URL)
+                .log().all()
+                .when()
+                .delete("/usuarios/" + id)
+                .then()
+                .log().all()
+                .extract().response();
     }
 }

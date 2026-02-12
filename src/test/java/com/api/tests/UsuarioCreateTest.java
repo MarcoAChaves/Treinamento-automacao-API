@@ -4,6 +4,7 @@ import com.api.core.BaseTest;
 import com.api.factory.UserFactory;
 import com.api.model.User;
 import com.api.service.UsuarioService;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +15,7 @@ public class UsuarioCreateTest extends BaseTest {
     void deveCriarUsuarioComSucesso() {
         User user = UserFactory.usuarioValido();
 
-        var response = UsuarioService.criarUsuario(user);
+        Response response = UsuarioService.criarUsuario(user);
 
         assertEquals(201, response.statusCode());
     }
@@ -26,6 +27,6 @@ public class UsuarioCreateTest extends BaseTest {
         var response = UsuarioService.criarUsuario(user);
 
         assertEquals(400, response.statusCode());
-        assertEquals("password deve ser uma string", response.jsonPath().getString("password"));
+        assertEquals("password é obrigatório", response.jsonPath().getString("password"));
     }
 }

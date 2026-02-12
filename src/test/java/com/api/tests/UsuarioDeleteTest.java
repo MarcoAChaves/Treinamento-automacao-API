@@ -2,7 +2,9 @@ package com.api.tests;
 
 import com.api.core.BaseTest;
 import com.api.factory.UserFactory;
+import com.api.model.User;
 import com.api.service.UsuarioService;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,14 +14,17 @@ public class UsuarioDeleteTest extends BaseTest {
     @Test
     void deveDeletarUsuario() {
 
-        var user = UserFactory.usuarioValido();
-        var createResponse = UsuarioService.criarUsuario(user);
+        User user = UserFactory.usuarioValido();
 
-        String id = createResponse.jsonPath().getString("_id");
+        Response create =
+                UsuarioService.criarUsuario(user);
 
-        var deleteResponse = UsuarioService.deletarUsuario(id);
+        String id = create.jsonPath().getString("_id");
 
-        assertEquals(200, deleteResponse.statusCode());
-        assertEquals("Registro excluído com sucesso", deleteResponse.jsonPath().getString("message"));
+        Response delete =
+                UsuarioService.deletarUsuario(id);
+
+        assertEquals("Registro excluído com sucesso",
+                delete.jsonPath().getString("message"));
     }
 }

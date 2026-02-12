@@ -7,23 +7,25 @@ public class UserFactory {
 
     public static User usuarioValido() {
         User user = new User();
-        user.nome = "Usuario " + UUID.randomUUID();
-        user.email = "user" + UUID.randomUUID() + "@test.com";
-        user.password = "123456";
-        user.administrador = "true";
+
+        user.setNome("Marco Teste");
+        user.setEmail("teste" + System.currentTimeMillis() + "@qa.com");
+        user.setPassword("123456");
+        user.setAdministrador("true");
+
         return user;
     }
 
     public static User usuarioSemSenha() {
-        User user = usuarioValido();
-        user.password = null;
-        return user;
-    }
+        User user = new User();
 
-    public static User usuarioDuplicado(String email) {
-        User user = usuarioValido();
-        user.email = email;
+        user.setNome("Marco Teste");
+        user.setEmail("teste" + System.currentTimeMillis() + "@qa.com");
+        user.setAdministrador("true");
+
         return user;
     }
 }
+
+
 
