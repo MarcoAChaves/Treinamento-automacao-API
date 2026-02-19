@@ -1,28 +1,22 @@
 package com.api.service;
 
-import com.api.core.RequestBuilder;
+import com.api.client.UserClient;
 import com.api.model.User;
 import io.restassured.response.Response;
-import org.json.JSONObject;
 
 public class UsuarioService {
 
+    private static final UserClient client = new UserClient();
+
     public static Response criarUsuario(User user) {
-
-        JSONObject body = new JSONObject();
-        body.put("nome", user.getNome());
-        body.put("email", user.getEmail());
-        body.put("password", user.getPassword());
-        body.put("administrador", user.getAdministrador());
-
-        return RequestBuilder.post("/usuarios", body.toString());
+        return client.criarUsuario(user);
     }
 
-    public static Response buscarUsuarioPorId(String id) {
-        return RequestBuilder.get("/usuarios/" + id);
+    public static Response buscarUsuario(String id) {
+        return client.buscarUsuario(id);
     }
 
     public static Response deletarUsuario(String id) {
-        return RequestBuilder.delete("/usuarios/" + id);
+        return client.deletarUsuario(id);
     }
 }

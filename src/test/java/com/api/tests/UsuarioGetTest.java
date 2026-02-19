@@ -1,5 +1,6 @@
 package com.api.tests;
 
+import com.api.assertions.ResponseValidator;
 import com.api.core.BaseTest;
 import com.api.factory.UserFactory;
 import com.api.model.User;
@@ -27,9 +28,8 @@ public class UsuarioGetTest extends BaseTest {
 
         // busca usuário criado
         Response response =
-                UsuarioService.buscarUsuarioPorId(id);
+                UsuarioService.buscarUsuario(id);
 
-        assertEquals(200, response.statusCode());
-        //assertEquals(user.getNome(), response.jsonPath().getString("nome"));
+        ResponseValidator.statusCode(response, 200);
     }
 }

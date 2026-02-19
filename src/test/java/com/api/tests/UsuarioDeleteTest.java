@@ -1,5 +1,6 @@
 package com.api.tests;
 
+import com.api.assertions.ResponseValidator;
 import com.api.core.BaseTest;
 import com.api.factory.UserFactory;
 import com.api.model.User;
@@ -24,7 +25,7 @@ public class UsuarioDeleteTest extends BaseTest {
         Response delete =
                 UsuarioService.deletarUsuario(id);
 
-        assertEquals("Registro excluído com sucesso",
-                delete.jsonPath().getString("message"));
+        ResponseValidator.statusCode(delete, 200);
+        ResponseValidator.message(delete, "Registro excluído com sucesso");
     }
 }
